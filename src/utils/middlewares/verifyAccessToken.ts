@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import jwt from 'jsonwebtoken'
-import { FetchNewAccessToken } from '../../service/generateNewAccessToken.service';
 import { config } from '../config';
 import { GenericServiceErrorResponse, GenericServiceResponse } from '../interfaces';
 import { status401Unauthorized, status403Forbidden, status500InternalServerError } from '../methods';
@@ -17,7 +16,7 @@ export async function verifyAccessToken(req:any, res: Response<GenericServiceRes
     const decodedToken:any = jwt.verify(cAccessToken, config.ACCESS_TOKEN_KEY)
     console.log(decodedToken.rol)
 
-    if(decodedToken.rol == "admin" || decodedToken.rol == "superadmin"){
+    if(decodedToken.rol == "admin" || decodedToken.rol == "superadmin" || decodedToken.rol == "client"){
       return next()
     }
     res.status(403).json(status403Forbidden("Insufficient permissions"))

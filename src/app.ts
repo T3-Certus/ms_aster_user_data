@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import * as dotenv from 'dotenv'
 import router from './routes/service.routes'
+import { verifyAccessToken } from './utils/middlewares/verifyAccessToken'
 
 const app = express()
 
@@ -27,6 +28,6 @@ const port = PORT || 3000
 
 // routes
 app.get('/', (req, res)=> res.send('MS User Data'))
-app.use('/v1/users', router)
+app.use('/v1/users', verifyAccessToken, router)
 
 export {app, port}
