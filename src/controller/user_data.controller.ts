@@ -24,17 +24,6 @@ export async function getUserData(
   res: Response<GenericServiceResponse | GenericServiceErrorResponse>
 ) {
   const { userId } = req.params;
-  // const query = req.query;
-  // const attributes = [
-  //   "id_user",
-  //   "id_user_rol",
-  //   "user_name",
-  //   "user_surname",
-  //   "user_document_type",
-  //   "user_document_number",
-  //   "user_cellphone",
-  //   "user_email",
-  // ];
 
   try {
     const userData = await model.findOne({
