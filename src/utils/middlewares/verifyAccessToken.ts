@@ -8,7 +8,7 @@ export async function verifyAccessToken(req:any, res: Response<GenericServiceRes
   // console.log(req.headers)
   const accessToken: string = req.headers.authorization
   if(!accessToken){
-    res.status(403).json(status401Unauthorized("An access token is required for authentication",))
+    return res.status(403).json(status401Unauthorized("An access token is required for authentication",))
   } 
   const cAccessToken = accessToken.replace("Bearer ", "")
   
@@ -19,11 +19,11 @@ export async function verifyAccessToken(req:any, res: Response<GenericServiceRes
     if(decodedToken.rol == "admin" || decodedToken.rol == "superadmin" || decodedToken.rol == "client"){
       return next()
     }
-    res.status(403).json(status403Forbidden("Insufficient permissions"))
+    return res.status(403).json(status403Forbidden("Insufficient permissions"))
 
   } catch (error) {
     console.log(error)
-    res.status(401).json(status401Unauthorized("Invalid access token", `${error}`))
+    return res.status(401).json(status401Unauthorized("Invalid access token", `${error}`))
     
   }
 
